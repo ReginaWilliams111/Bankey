@@ -9,6 +9,8 @@ import UIKit
 
 class LoginViewController: UIViewController {
     
+    var titleLabel = UILabel()
+    var descLabel = UILabel()
     let loginView = LoginView()
     let signInButton = UIButton(type: .system)
     let errorMessageLabel = UILabel()
@@ -35,6 +37,12 @@ class LoginViewController: UIViewController {
 
 extension LoginViewController {
     private func configure() {
+        
+        titleLabel = makeLabel(with: "Bankey", size: 32)
+        descLabel = makeLabel(with: "Your premium source for all things banking!", size: 26)
+       
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        descLabel.translatesAutoresizingMaskIntoConstraints = false
         loginView.translatesAutoresizingMaskIntoConstraints = false
         
         signInButton.translatesAutoresizingMaskIntoConstraints = false
@@ -53,11 +61,22 @@ extension LoginViewController {
     }
     
     private func layout() {
+        view.addSubview(titleLabel)
+        view.addSubview(descLabel)
         view.addSubview(loginView)
         view.addSubview(signInButton)
         view.addSubview(errorMessageLabel)
         
         NSLayoutConstraint.activate([
+            
+            titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 100),
+            
+            descLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 30),
+            descLabel.centerXAnchor.constraint(equalTo: titleLabel.centerXAnchor),
+            descLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 25),
+            descLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -25),
+            
             loginView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             loginView.leadingAnchor.constraint(equalToSystemSpacingAfter: view.leadingAnchor, multiplier: 1),
             view.trailingAnchor.constraint(equalToSystemSpacingAfter: loginView.trailingAnchor, multiplier: 1),
@@ -74,6 +93,19 @@ extension LoginViewController {
             errorMessageLabel.trailingAnchor.constraint(equalTo: signInButton.trailingAnchor)
         
         ])
+    }
+}
+
+// MARK: - Factories
+extension LoginViewController {
+    func makeLabel(with text:String, size: CGFloat) -> UILabel {
+        let label = UILabel()
+        label.numberOfLines = 2
+        label.text = text
+        label.textAlignment = .center
+        label.font = .systemFont(ofSize: size, weight: .bold)
+        label.lineBreakMode = .byWordWrapping
+        return label
     }
 }
 

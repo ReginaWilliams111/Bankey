@@ -52,6 +52,7 @@ extension LoginView {
         
         passwordTextField.translatesAutoresizingMaskIntoConstraints = false
         passwordTextField.font = .systemFont(ofSize: 20)
+        
         passwordTextField.isSecureTextEntry = true
         passwordTextField.placeholder = "Password"
         passwordTextField.delegate = self
